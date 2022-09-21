@@ -2,7 +2,7 @@
 
 ## 개요
 
-병원 근무표를 만들어주는 프로그램입니다.
+병원 근무표 Django Server
 
 ## 사용 스택
 
@@ -11,4 +11,6 @@
 -   Django Rest Framework 3.12.4
 -   Django Rest Framework Simple JWT 5.2.0
 
+## 인증
 
+-   JWT

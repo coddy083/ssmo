@@ -1,4 +1,5 @@
 from django.db import models
+from user.models import User
 
 class HolliyDay(models.Model):
     HOURS_CHOICES = (
@@ -7,6 +8,7 @@ class HolliyDay(models.Model):
         ('시차', '시차'),
         ('휴일', '휴일'),
     )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     hours = models.CharField(max_length=10, choices=HOURS_CHOICES)
     note = models.CharField(max_length=256, blank=True)
     date = models.DateField()

@@ -14,4 +14,4 @@ class HolliyDay(models.Model):
     date = models.DateField()
 
     def __str__(self):
-        return self.note
+        return f'{self.user} | {self.date} | {self.hours} | ({self.note})'

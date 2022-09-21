@@ -8,7 +8,7 @@ from django.db.models import Q
 
 class HolidayView(APIView):
     def get(self, request):
-        holiday = HolliyDay.objects.all()
+        holiday = HolliyDay.objects.filter(user=request.user)
         serializer = HolidaySerializer(holiday, many=True)
         return Response(serializer.data)
 
@@ -26,6 +26,16 @@ class HolidayView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        holiday = Q(user=request.user) & Q(date=request.data['date'])            
+        holiday = HolliyDay.objects.filter(holiday)
+        holiday = holiday.last()
+        serializer = HolidaySerializer(holiday, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
